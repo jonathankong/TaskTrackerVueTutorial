@@ -24,7 +24,40 @@
 
 <script>
 export default {
-  
+  name: 'AddTask',
+  data() {
+    return{
+      text: 'Test', 
+      day: '',
+      reminder: false
+    }
+  },
+  methods: {
+    onSubmit(e){
+      e.preventDefault()
+      
+      if (!this.text){
+        alert('Please add a task')
+        return
+      }
+
+      //Create new task
+      const newTask  = {
+        id: Math.floor(Math.random() * 100000),
+        text: this.text, 
+        day: this.day, 
+        reminder: this.reminder
+      }
+
+      //Push newTask upward to tell App.vue to run add Task method.
+      this.$emit('add-task', newTask)
+
+      //Reset form
+      this.text = ''
+      this.day = ''
+      this.reminder = false
+    }
+  }
 }
 </script>
 
